@@ -8,10 +8,6 @@ function StoreList() {
 	  this.listItems = [];
 		this.total = 0;
 
-		// var initialize = function(){
-		// 	this.makeDraggable()
-		// }
-
 		var list = []
 			$('#store_list tr.item').each(function(){
 				var name = $(this).find('.item_name')
@@ -42,9 +38,33 @@ StoreList.prototype.makeDraggable = function(item) {
 
 
 function GroceryList() {
+		this.listItems = [];
+		this.total = 0;
+
+		var list = []
+			$('#grocery_list tr.item').each(function(){
+				var name = $(this).find('.item_name')
+				var price = $(this).find('.item_price')
+				list.push({ name: name[0].innerHTML, price: price[0].innerHTML })
+		})
+
+		for (var i = 0; i < list.length; i ++) {
+			var newItem = new Item()
+				newItem.name = list[i].name;
+				newItem.price = list[i].price;
+				this.addItem(newItem)
+		}
 
 };
 
+GroceryList.prototype.addItem = function(item) {
+	this.listItems.push(item);
+	this.addPrice(item);
+}
+
+GroceryList.prototype.addPrice = function(item) {
+	this.total +=parseFloat(item.price)
+}
 
 GroceryList.prototype.makeDroppable = function(item) {
 	$('#grocery_list').droppable({
@@ -55,7 +75,6 @@ GroceryList.prototype.makeDroppable = function(item) {
 }
 
 
-
 $(document).ready(function(){
 	var newStore = new StoreList();
 	var myG = new GroceryList();
@@ -63,10 +82,6 @@ $(document).ready(function(){
 		newStore.makeDraggable();
 		myG.makeDroppable();
 });
-
-
-
-
 
 
 

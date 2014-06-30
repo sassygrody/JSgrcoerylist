@@ -58,6 +58,7 @@ GroceryList.prototype.updateTotal = function() {
 	$("#grocery_list tfoot tr td:last-child").html(this.total)
 }
 
+// READY, SET, DRAG
 
 $(document).ready(function(){
 	newStore = new StoreList();
